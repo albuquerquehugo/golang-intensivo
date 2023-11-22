@@ -1,0 +1,31 @@
+package infra
+
+import (
+	"database/sql"
+
+	"github.com/albuquerquehugo/golang-intensivo/internal/entity"
+)
+
+type OrderRepository struct {
+	Db *sql.DB
+}
+
+func NewOrder
+
+func (r *OrderRepository) Save(order *entity.Order) error {
+	_, err := r.Db.Exec("INSERT INTO orders (id, price, tax, final_price) VALUES (?,?,?,?)",
+		order.ID, order.Price, order.Tax, order.FinalPrice)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (r *OrderRepository) GetTotalTransactions() (int, error) {
+	var total int
+	err := r.Db.QueryRow("SELECT COUNT(*) FROM orders").Scan(&total)
+	if err != nil {
+		return 0, nil
+	}
+	return total, nil
+}
