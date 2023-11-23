@@ -3,10 +3,12 @@ package usecase
 import "github.com/albuquerquehugo/golang-intensivo/internal/entity"
 
 type OrderInput struct {
-	ID    string
-	Price float64
-	Tax   float64
+	ID    string  `json:"id"`
+	Price float64 `json:"price"`
+	Tax   float64 `json:"tax"`
 }
+
+// {"id": "1", "price": 10.0, "tax": 0.1}
 
 type OrderOutput struct {
 	ID         string
@@ -23,7 +25,7 @@ func NewCalculateFinalPrice(orderRepository entity.OrderRepositoryInterface) *Ca
 	return &CalculateFinalPrice{OrderRepository: orderRepository}
 }
 
-func (c *CalculateFinalPrice) Execute(input *OrderInput) (*OrderOutput, error) {
+func (c *CalculateFinalPrice) Execute(input OrderInput) (*OrderOutput, error) {
 	order, err := entity.NewOrder(input.ID, input.Price, input.Tax)
 	if err != nil {
 		return nil, err
