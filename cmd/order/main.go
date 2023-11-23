@@ -12,25 +12,25 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 )
 
-type Car struct {
-	Model string
-	Color string
-}
+// type Car struct {
+// 	Model string
+// 	Color string
+// }
 
-// método
-func (c Car) Start() {
-	println(c.Model + " has been started")
-}
+// // método
+// func (c Car) Start() {
+// 	println(c.Model + " has been started")
+// }
 
-func (c *Car) ChangeColor(color string) {
-	c.Color = color
-	println("New color: " + c.Color)
-}
+// func (c *Car) ChangeColor(color string) {
+// 	c.Color = color
+// 	println("New color: " + c.Color)
+// }
 
-// função comum
-func soma(x, y int) int {
-	return x + y
-}
+// // função comum
+// func soma(x, y int) int {
+// 	return x + y
+// }
 
 func main() {
 	// car := Car {
@@ -80,7 +80,6 @@ func main() {
 	go rabbitmq.Consume(ch, msgRabbitmqChannel) // escutando a fila // trava // T2
 	rabbitmqWorker(msgRabbitmqChannel, uc)
 }
-
 
 func rabbitmqWorker(msgChan chan amqp.Delivery, uc *usecase.CalculateFinalPrice) {
 	fmt.Println("Starting rabbitmq")
